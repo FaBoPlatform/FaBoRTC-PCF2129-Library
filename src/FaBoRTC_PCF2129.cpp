@@ -1,48 +1,54 @@
 /**
- * @file  FaBoRTC_PCF2129.cpp
- * @brief fabo libtary of PCF2129
- * @author Akira Sasaki
- * @date 2,10, 2016
- */
- #include "FaBoRTC_PCF2129.h"
+ @file FaBoRTC_PCF2129.cpp
+ @brief This is a library for the FaBo RTC I2C Brick.
 
- /**
-  * @brief PCF2129 processing Start
-  * @param addr : PCV2129 Slave Address
-  */
+   http://fabo.io/215.html
+
+   Released under APACHE LICENSE, VERSION 2.0
+
+   http://www.apache.org/licenses/
+
+ @author FaBo<info@fabo.io>
+*/
+
+#include "FaBoRTC_PCF2129.h"
+
+/**
+ @brief Constructor
+*/
 FaBoRTC_PCF2129::FaBoRTC_PCF2129(uint8_t addr) {
   _i2caddr = addr;
   Wire.begin();
 }
 
 /**
- * @brief Search Device PCF2129
- * @retval true  : Found
- * @retval false : Not found
- */
+ @brief Search Device
+ @retval true device connected
+ @retval false device error
+*/
 bool FaBoRTC_PCF2129::searchDevice(void) {
   return !(readI2c(_i2caddr) >>7);
 }
 
 /**
- * @brief Set Config
- */
+ @brief Configure Device
+*/
 void FaBoRTC_PCF2129::configure(void) {
   set24mode();
 }
 
 /**
- * @brief Get seconds from PCF2129
- * @return uint8_t : get seconds
- */
+ @brief Get Seconds from RTC
+ @param [out] seconds seconds 
+*/
 uint8_t FaBoRTC_PCF2129::getSeconds(void) {
   return bcdToDec(readI2c(PCF2129_SECONDS));
 }
 
 /**
- * @brief Set seconds to PCF2129
- * @param seconds : Set to seconds
- */
+ @brief Set Seconds to RTC
+ @param [in] seconds seconds 
+*/
 void FaBoRTC_PCF2129::setSeconds(uint8_t seconds) {
   if ( seconds>59 && seconds<0 ) {
     seconds = 0;
@@ -51,17 +57,17 @@ void FaBoRTC_PCF2129::setSeconds(uint8_t seconds) {
 }
 
 /**
- * @brief Get minutes from PCF2129
- * @return uint8_t : Get minutes
- */
+ @brief Get Minutes from RTC
+ @param [out] minutes minutes 
+*/
 uint8_t FaBoRTC_PCF2129::getMinutes(void) {
   return bcdToDec(readI2c(PCF2129_MINUTES));
 }
 
 /**
- * @brief Set minutes to PCF2129
- * @param [in] minutes : Set to minutes
- */
+ @brief Set Minutes to RTC
+ @param [in] minutes minutes 
+*/
 void FaBoRTC_PCF2129::setMinutes(uint8_t minutes) {
   if ( minutes>59 && minutes<0 ) {
     minutes = 0;
@@ -70,17 +76,17 @@ void FaBoRTC_PCF2129::setMinutes(uint8_t minutes) {
 }
 
 /**
- * @brief Get hours from PCF2129
- * @return uint8_t : Get hours
- */
+ @brief Get Hours from RTC
+ @param [out] hours hours 
+*/
 uint8_t FaBoRTC_PCF2129::getHours(void) {
   return bcdToDec(readI2c(PCF2129_HOURS));
 }
 
 /**
- * @brief Set hours to PCF2129
- * @param [in] hours : Set to hours
- */
+ @brief Set Hours to RTC
+ @param [in] hours hours 
+*/
 void FaBoRTC_PCF2129::setHours(uint8_t hours) {
   set24mode();
   if ( hours>23 && hours<0 ) {
@@ -90,17 +96,17 @@ void FaBoRTC_PCF2129::setHours(uint8_t hours) {
 }
 
 /**
- * @brief Get days from PCF2129
- * @return uint8_t : Get days
- */
+ @brief Get Days from RTC
+ @param [out] days days 
+*/
 uint8_t FaBoRTC_PCF2129::getDays(void) {
   return bcdToDec(readI2c(PCF2129_DAYS));
 }
 
 /**
- * @brief Set days to PCF2129
- * @param [in] days : Set to days
- */
+ @brief Set Days to RTC
+ @param [in] days days 
+*/
 void FaBoRTC_PCF2129::setDays(uint8_t days) {
   if ( days>31 && days<1 ) {
     days = 1;
@@ -109,17 +115,17 @@ void FaBoRTC_PCF2129::setDays(uint8_t days) {
 }
 
 /**
- * @brief Get weekdays from PCF2129
- * @return uint8_t : Get weekdays
- */
+ @brief Get Weekdays from RTC
+ @param [out] weekdays weekdays 
+*/
 uint8_t FaBoRTC_PCF2129::getWeekdays(void) {
   return bcdToDec(readI2c(PCF2129_WEEKDAYS));
 }
 
 /**
- * @brief Set weekdays to PCF2129
- * @param [in] weekdays : Set to weekdays
- */
+ @brief Set Weekdays to RTC
+ @param [in] weekdays weekdays 
+*/
 void FaBoRTC_PCF2129::setWeekdays(uint8_t weekdays) {
   if ( weekdays>6 && weekdays<0 ) {
     weekdays = 0;
@@ -128,17 +134,17 @@ void FaBoRTC_PCF2129::setWeekdays(uint8_t weekdays) {
 }
 
 /**
- * @brief Get months from PCF2129
- * @return uint8_t : Get months
- */
+ @brief Get Months from RTC
+ @param [out] months months 
+*/
 uint8_t FaBoRTC_PCF2129::getMonths(void) {
   return bcdToDec(readI2c(PCF2129_MONTHS));
 }
 
 /**
- * @brief Set months to PCF2129
- * @param [in] months : Set to months
- */
+ @brief Set Months to RTC
+ @param [in] months months 
+*/
 void FaBoRTC_PCF2129::setMonths(uint8_t months) {
   if ( months>12 && months<1 ) {
     months = 1;
@@ -147,17 +153,17 @@ void FaBoRTC_PCF2129::setMonths(uint8_t months) {
 }
 
 /**
- * @brief Get years from PCF2129
- * @return uint8_t : Get years
- */
+ @brief Get Years from RTC
+ @param [out] years years 
+*/
 uint8_t FaBoRTC_PCF2129::getYears(void) {
   return bcdToDec(readI2c(PCF2129_YEARS));
 }
 
 /**
- * @brief Set years to PCF2129
- * @param [in] days : Set to years
- */
+ @brief Set Years to RTC
+ @param [in] years years 
+*/
 void FaBoRTC_PCF2129::setYears(uint8_t years) {
   if ( years>99 && years<0 ) {
     years = 0;
@@ -166,8 +172,9 @@ void FaBoRTC_PCF2129::setYears(uint8_t years) {
 }
 
 /**
- * @brief Get set to variable now from PCF2129
- */
+ @brief Read from RTC
+ @param [out] DateTime DateTime 
+*/
 DateTime FaBoRTC_PCF2129::now(void) {
   Wire.beginTransmission(_i2caddr);
   Wire.write(PCF2129_SECONDS);
@@ -186,14 +193,9 @@ DateTime FaBoRTC_PCF2129::now(void) {
 }
 
 /**
- * @brief Set Date from PCF2129
- * @param [in] years   : Set Years Data
- * @param [in] months  : Set months Data
- * @param [in] days    : Set days Data
- * @param [in] hours   : Set hours Data
- * @param [in] minutes : Set minutes Data
- * @param [in] seconds : Set seconds Data
- */
+ @brief Set to RTC
+ @param [in] DateTime DateTime 
+*/
 void FaBoRTC_PCF2129::setDate(uint16_t years, uint8_t months, uint8_t days,
                               uint8_t hours, uint8_t minutes, uint8_t seconds) {
   Wire.beginTransmission(_i2caddr);
@@ -209,8 +211,8 @@ void FaBoRTC_PCF2129::setDate(uint16_t years, uint8_t months, uint8_t days,
 }
 
 /**
- * @brief Set 12-Hour Mode
- */
+ @brief Set to 12 hour mode
+*/
 void FaBoRTC_PCF2129::set12mode(void) {
   uint8_t ctrl;
   ctrl = readCtrl();
@@ -219,8 +221,8 @@ void FaBoRTC_PCF2129::set12mode(void) {
 }
 
 /**
- * @brief Set 24-Hour Mode
- */
+ @brief Set to 24 hour mode
+*/
 void FaBoRTC_PCF2129::set24mode(void) {
   uint8_t ctrl;
   ctrl = readCtrl();
@@ -231,28 +233,28 @@ void FaBoRTC_PCF2129::set24mode(void) {
 ////////////////////////////////////////////////////////////////
 
 /**
- * @brief Conversion from BCD to DEC
- * @param  [in] value   : BCD Data
- * @return uint8_t : DEC Data
- */
+ @brief BCD to DEC
+ @param [in] value BCD value 
+ @param [out] value DEC value 
+*/
 uint8_t FaBoRTC_PCF2129::bcdToDec(uint8_t value) {
   return (uint8_t) ( (value/16*10) + (value%16) );
 }
 
 /**
- * @brief Conversion from BCD to DEC
- * @param  [in] value   : DEC Data
- * @return uint8_t : BCD Data
- */
+ @brief DEC to BCD
+ @param [in] value DEC value 
+ @param [out] value BCD value 
+*/
 uint8_t FaBoRTC_PCF2129::decToBcd(uint8_t value) {
   return (uint8_t) ( (value/10*16) + (value%10) );
 }
 
 /**
- * @brief Read I2C Data
- * @param [in] register_addr : register address
- * @return uint8_t : Read Data
- */
+ @brief Read I2C Data
+ @param [in] address register address 
+ @param [out] data read data 
+*/
 uint8_t FaBoRTC_PCF2129::readI2c(uint8_t address) {
   Wire.beginTransmission(_i2caddr);
   Wire.write(address);
@@ -263,10 +265,10 @@ uint8_t FaBoRTC_PCF2129::readI2c(uint8_t address) {
 }
 
 /**
- * @brief Write I2C Data
- * @param [in] address : Write Register Address
- * @param [in] data    : Write Data
- */
+ @brief Write I2C Data
+ @param [in] address register address 
+ @param [in] data write data 
+*/
 void FaBoRTC_PCF2129::writeI2c(uint8_t address, uint8_t data) {
   Wire.beginTransmission(_i2caddr);
   Wire.write(address);
@@ -275,23 +277,26 @@ void FaBoRTC_PCF2129::writeI2c(uint8_t address, uint8_t data) {
 }
 
 /**
- * @brief Read Control and Status Register1
- * @return data : Read Data
- */
+ @brief Read Control Register
+ @param [out] data register data 
+*/
 uint8_t FaBoRTC_PCF2129::readCtrl(void) {
   return readI2c(PCF2129_CONTROL_REGISTERS);
 }
 
 /**
- * @brief Write Control and Status Register1
- * @param [in] data : Write Data
- */
+ @brief Write Control Register
+ @param [in] data register data 
+*/
 void FaBoRTC_PCF2129::writeCtrl(uint8_t data) {
   writeI2c(PCF2129_CONTROL_REGISTERS, data);
 }
 
 ////////////////////////////////////////////////////////////////
 
+/**
+ @brief Constructor
+*/
 DateTime::DateTime(uint16_t years, uint8_t months, uint8_t days,
                    uint8_t hours, uint8_t minutes, uint8_t seconds) {
   if (years >= 2000)

@@ -7,6 +7,7 @@
 #######################################
 
 FaBoRTC_PCF2129	KEYWORD1
+DateTime	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

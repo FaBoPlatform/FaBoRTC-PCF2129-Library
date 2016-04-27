@@ -1,24 +1,31 @@
-//
-// FaBo Brick Example
-//
-// FaBo RTC PCF2129
-//
+/**
+ @file rtc.ino
+ @brief This is an Example for the FaBo RTC I2C Brick.
+
+   http://fabo.io/215.html
+
+   Released under APACHE LICENSE, VERSION 2.0
+
+   http://www.apache.org/licenses/
+
+ @author FaBo<info@fabo.io>
+*/
 
 #include <Wire.h>
 #include <FaBoRTC_PCF2129.h>
 
-FaBoRTC_PCF2129 faboRtc;
+FaBoRTC_PCF2129 faboRTC;
 
 void setup() {
-  Serial.begin(9600); // シリアルの開始
+  Serial.begin(9600);
   Serial.println();
   Serial.println("RESET");
 
   // デバイス初期化
   Serial.println("Checking I2C device...");
-  if (faboRtc.searchDevice()) {
-    Serial.println("configuring RTC PCF2129");
-    faboRtc.configure();
+  if (faboRTC.searchDevice()) {
+    Serial.println("configuring FaBo RTC I2C Brick");
+    faboRTC.configure();
   } else {
     Serial.println("device not found");
     while(1);
@@ -26,13 +33,13 @@ void setup() {
 
   // 日付時刻の設定
   Serial.println("set date/time");
-  faboRtc.setDate(2016,2,8,17,51,50);
+  faboRTC.setDate(2016,4,1,12,1,50);
 
 }
 
 void loop() {
   // 日付時刻の取得
-  DateTime now = faboRtc.now();
+  DateTime now = faboRTC.now();
 
   // 日付時刻の表示
   Serial.print("Time: ");
