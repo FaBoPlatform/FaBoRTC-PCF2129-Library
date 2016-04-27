@@ -1,21 +1,23 @@
 # FaBoRTC-PCF2129-Library
 
-## FaBoRTC
+This is a library for FaBo #215 RTC I2C Brick.
 
-This is a library for FaBo RTC Brick.
+## FaBo RTC I2C Brick
+
+[#215 RTC I2C Brick](http://fabo.io/215.html)
 
 ## PCF2129
 
 PCF2129 is RTC with integrated quartz crystal
 
-## Datasheet
+### PCF2129 Datasheet
 
 [PCF2129 Datasheet](http://cache.nxp.com/documents/data_sheet/PCF2129.pdf)
 
 ## Releases
 
-1.0.0 Initial release.
+- 1.0.0 Initial release.
 
-## How to install.
+## How to install
 
-[Installing Additional Arduino Libraries](https://www.arduino.cc/en/Guide/Libraries#toc3)
+[Installing Additional Arduino Libraries](https://www.arduino.cc/en/Guide/Libraries)
