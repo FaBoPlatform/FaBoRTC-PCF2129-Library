@@ -1,47 +1,46 @@
-/**
- @file rtc.ino
- @brief This is an Example for the FaBo RTC I2C Brick.
-
-   http://fabo.io/215.html
-
-   Released under APACHE LICENSE, VERSION 2.0
-
-   http://www.apache.org/licenses/
-
- @author FaBo<info@fabo.io>
-*/
-
 #include <Wire.h>
-#include <FaBoRTC_PCF2129.h>
+#include <RTC_PCF2129.h>
 
-FaBoRTC_PCF2129 faboRTC;
+RTC_PCF2129 RTC;
+
+uint8_t dow(uint16_t y, uint8_t m, uint8_t d)
+{
+  uint8_t dow;
+  uint8_t dowArray[] PROGMEM = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+
+  y -= m < 3;
+  dow = ((y + y / 4 - y / 100 + y / 400 + pgm_read_byte(dowArray + (m - 1)) + d) % 7);
+
+  if (dow == 0)
+  {
+    return 7;
+  }
+  return dow;
+}
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
+
   Serial.println();
   Serial.println("RESET");
 
-  // デバイス初期化
   Serial.println("Checking I2C device...");
-  if (faboRTC.searchDevice()) {
-    Serial.println("configuring FaBo RTC I2C Brick");
-    faboRTC.configure();
+  if (RTC.searchDevice())
+  {
+    Serial.println("configuring RTC I2C");
+    RTC.configure();
   } else {
     Serial.println("device not found");
-    while(1);
+    while (1);
   }
 
-  // 日付時刻の設定
-  Serial.println("set date/time");
-  faboRTC.setDate(2016,4,1,12,1,50);
-
+  //  Serial.println("set date/time");
+  //  RTC.setDate(2020, 4, 2, 14, 14, 43, 00);
 }
 
 void loop() {
-  // 日付時刻の取得
-  DateTime now = faboRTC.now();
+  DateTime now = RTC.now();
 
-  // 日付時刻の表示
   Serial.print("Time: ");
   Serial.print(now.year());
   Serial.print("/");
@@ -54,7 +53,8 @@ void loop() {
   Serial.print(now.minute());
   Serial.print(":");
   Serial.print(now.second());
-  Serial.println();
+  Serial.print(" - ");
+  Serial.println(now.week());
 
   delay(1000);
 }

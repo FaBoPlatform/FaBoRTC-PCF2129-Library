@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map For FaBoRTC-PCF2129-Library
+# Syntax Coloring Map For RTC-PCF2129-Library
 ####################################### 
 
 #######################################
 # Class (KEYWORD1)
 #######################################
 
-FaBoRTC_PCF2129	KEYWORD1
+RTC_PCF2129	KEYWORD1
 DateTime	KEYWORD1
 
 #######################################
