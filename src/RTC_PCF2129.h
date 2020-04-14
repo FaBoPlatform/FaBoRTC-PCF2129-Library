@@ -1,18 +1,5 @@
-/**
- @file FaBoRTC_PCF2129.h
- @brief This is a library for the FaBo RTC I2C Brick.
-
-   http://fabo.io/215.html
-
-   Released under APACHE LICENSE, VERSION 2.0
-
-   http://www.apache.org/licenses/
-
- @author FaBo<info@fabo.io>
-*/
-
-#ifndef FABORTC_PCF2129_H
-#define FABORTC_PCF2129_H
+#ifndef RTC_PCF2129_H
+#define RTC_PCF2129_H
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -38,25 +25,25 @@
 */
 class DateTime {
   public:
-    DateTime (uint16_t years, uint8_t months, uint8_t days,
-              uint8_t hours, uint8_t minutes, uint8_t seconds);
+    DateTime (uint16_t years, uint8_t months, uint8_t weekdays, uint8_t days, uint8_t hours, uint8_t minutes, uint8_t seconds);
     uint16_t year()  const { return y+2000; }
     uint8_t month()  const { return m; }
     uint8_t day()    const { return d; }
+	uint8_t week() const { return w; }
     uint8_t hour()   const { return hh; }
     uint8_t minute() const { return mm; }
     uint8_t second() const { return ss; }
   protected:
-    uint8_t y,m,d,hh,mm,ss;
+    uint8_t y,m,d,w,hh,mm,ss;
 };
 
 /**
- @class FaBoRTC_PCF2129
- @brief FaBo RTC I2C Controll class
+ @class RTC_PCF2129
+ @brief RTC I2C Controll class
 */
-class FaBoRTC_PCF2129 {
+class RTC_PCF2129 {
   public:
-    FaBoRTC_PCF2129(uint8_t addr = PCF2129_SLAVE_ADDRESS);
+    RTC_PCF2129(uint8_t addr = PCF2129_SLAVE_ADDRESS);
     bool searchDevice(void);
     void configure(void);
     uint8_t getSeconds(void);
@@ -74,8 +61,7 @@ class FaBoRTC_PCF2129 {
     uint8_t getYears(void);
     void setYears(uint8_t years);
     DateTime now(void);
-    void setDate(uint16_t years, uint8_t months, uint8_t days,
-                 uint8_t hours, uint8_t minutes, uint8_t seconds);
+    void setDate(uint16_t years, uint8_t months, uint8_t weekdays, uint8_t days, uint8_t hours, uint8_t minutes, uint8_t seconds);
     void set12mode(void);
     void set24mode(void);
   private:
@@ -88,4 +74,4 @@ class FaBoRTC_PCF2129 {
     void writeCtrl(uint8_t data);
 };
 
-#endif // FABORTC_PCF2129_H
+#endif // RTC_PCF2129_H
