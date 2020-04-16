@@ -3,7 +3,8 @@
 
 RTC_PCF2129 RTC;
 
-void setup() {
+void setup()
+{
   Serial.begin(115200);
 
   Serial.println();
@@ -17,7 +18,7 @@ void setup() {
     Serial.println("configuring RTC I2C");
     RTC.configure();
 
-    if (RTC.IsDateTimeValid())
+    if (!RTC.IsDateTimeValid())
     {
       if (RTC.LastError() != 0)
       {
@@ -36,43 +37,45 @@ void setup() {
         // it will also reset the valid flag internally unless the Rtc device is
         // having an issue
 
-        //        RTC.SetDateTime(compiled);
+        RTC.SetDateTime(compiled);
       }
     }
     else
     {
+      Serial.printf("Found an RTC with valid time\n");
+    }
+
+    uint32_t nowTS = RTC.now().getTimeStamp();
+    uint32_t compiledTS = compiled.getTimeStamp();
+    if (nowTS < compiledTS)
+    {
+      Serial.printf("RTC is older than compile time!  (Updating DateTime)\n");
       RTC.SetDateTime(compiled);
     }
-  } else {
-    Serial.println("device not found");
-    while (1);
+    else if (nowTS > compiledTS)
+    {
+      Serial.printf("RTC is newer than compile time. (this is expected)\n");
+    }
+    else if (nowTS == compiledTS)
+    {
+      Serial.printf("RTC is the same as compile time! (not expected but all is fine)\n");
+    }
   }
-
-  //  Serial.println("set date/time");
-  //  RTC.setDate(2020, 4, 2, 14, 14, 43, 00);
+  else
+  {
+    Serial.printf("device not found\n");
+    while (1)
+      ;
+  }
 }
 
-void loop() {
+void loop()
+{
   DateTime now = RTC.now();
 
-  Serial.print("Time: ");
-  Serial.print(now.year());
-  Serial.print("/");
-  Serial.print(now.month());
-  Serial.print("/");
-  Serial.print(now.day());
-  Serial.print(" ");
-  Serial.print(now.hour());
-  Serial.print(":");
-  Serial.print(now.minute());
-  Serial.print(":");
-  Serial.print(now.second());
-  Serial.print(" - ");
-  Serial.println(now.week());
-
+  Serial.printf("Date: %d/%d/%d Time: %d:%d:%d week: %d\n", now.year(), now.month(), now.day(), now.hour(), now.minute(), now.second(), now.week());
   Serial.printf("str Data: %s\n", now.getStrData().c_str());
   Serial.printf("str Hora: %s\n", now.getStrHora().c_str());
   Serial.printf("TS: %u\n", now.getTimeStamp());
-
   delay(1000);
 }
