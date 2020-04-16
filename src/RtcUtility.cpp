@@ -22,7 +22,7 @@ uint8_t BcdToBin24Hour(uint8_t bcdHour)
         hour = BcdToUint8(bcdHour & 0x1f);
         if (isPm)
         {
-           hour += 12;
+            hour += 12;
         }
     }
     else
@@ -32,10 +32,12 @@ uint8_t BcdToBin24Hour(uint8_t bcdHour)
     return hour;
 }
 
-uint8_t bcdToDec(uint8_t value) {
-  return (uint8_t) ( (value/16*10) + (value%16) );
+uint8_t bcdToDec(uint8_t value)
+{
+    return (uint8_t)((value / 16 * 10) + (value % 16));
 }
 
-uint8_t decToBcd(uint8_t value) {
-  return (uint8_t) ( (value/10*16) + (value%10) );
+uint8_t decToBcd(uint8_t value)
+{
+    return (uint8_t)((value / 10 * 16) + (value % 10));
 }

@@ -21,25 +21,27 @@
 
 #define PCF2129_OSF 7
 
-class RTC_PCF2129 {
-  public:
-    RTC_PCF2129(uint8_t addr = PCF2129_SLAVE_ADDRESS);
-    bool searchDevice(void);
-    void configure(void);
-	bool IsDateTimeValid(void);
-    DateTime now(void);
-	void SetDateTime(const DateTime& dt);
-	void UpdateRTCbyTS(uint32_t timeTS);
-    void set12mode(void);
-    void set24mode(void);
-	uint8_t LastError(void);
-  private:
-	uint8_t _lastError;
-    uint8_t _i2caddr;
-    uint8_t readI2c(uint8_t address);
-    void writeI2c(uint8_t address, uint8_t data);
-    uint8_t readCtrl(void);
-    void writeCtrl(uint8_t data);
+class RTC_PCF2129
+{
+public:
+  RTC_PCF2129(uint8_t addr = PCF2129_SLAVE_ADDRESS);
+  bool searchDevice(void);
+  void configure(void);
+  bool IsDateTimeValid(void);
+  DateTime now(void);
+  void SetDateTime(const DateTime &dt);
+  void UpdateRTCbyTS(uint32_t timeTS);
+  void set12mode(void);
+  void set24mode(void);
+  uint8_t LastError(void);
+
+private:
+  uint8_t _lastError;
+  uint8_t _i2caddr;
+  uint8_t readI2c(uint8_t address);
+  void writeI2c(uint8_t address, uint8_t data);
+  uint8_t readCtrl(void);
+  void writeCtrl(uint8_t data);
 };
 
 #endif // RTC_PCF2129_H

@@ -1,24 +1,24 @@
 #include <Arduino.h>
 #include "RtcDateTime.h"
 
-uint8_t StringToUint8(const char* pString)
+uint8_t StringToUint8(const char *pString)
 {
-    uint8_t value = 0;
+  uint8_t value = 0;
 
-    // skip leading 0 and spaces
-    while ('0' == *pString || *pString == ' ')
-    {
-        pString++;
-    }
+  // skip leading 0 and spaces
+  while ('0' == *pString || *pString == ' ')
+  {
+    pString++;
+  }
 
-    // calculate number until we hit non-numeral char
-    while ('0' <= *pString && *pString <= '9')
-    {
-        value *= 10;
-        value += *pString - '0';
-        pString++;
-    }
-    return value;
+  // calculate number until we hit non-numeral char
+  while ('0' <= *pString && *pString <= '9')
+  {
+    value *= 10;
+    value += *pString - '0';
+    pString++;
+  }
+  return value;
 }
 
 uint8_t dow(uint16_t y, uint8_t m, uint8_t d)
@@ -36,48 +36,48 @@ uint8_t dow(uint16_t y, uint8_t m, uint8_t d)
   return dow;
 }
 
-DateTime::DateTime(const char* date, const char* time)
+DateTime::DateTime(const char *date, const char *time)
 {
-    // sample input: date = "Dec 06 2009", time = "12:34:56"
-    _year = StringToUint8(date + 9);
-    // Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-    switch (date[0])
-    {
-    case 'J':
-        if ( date[1] == 'a' )
-            _month = 1;
-        else if ( date[2] == 'n' )
-            _month = 6;
-        else
-            _month = 7;
-        break;
-    case 'F':
-        _month = 2;
-        break;
-    case 'A':
-        _month = date[1] == 'p' ? 4 : 8;
-        break;
-    case 'M':
-        _month = date[2] == 'r' ? 3 : 5;
-        break;
-    case 'S':
-        _month = 9;
-        break;
-    case 'O':
-        _month = 10;
-        break;
-    case 'N':
-        _month = 11;
-        break;
-    case 'D':
-        _month = 12;
-        break;
-    }
-    _day = StringToUint8(date + 4);
-	_week = dow(_year, _month, _day);
-    _hour = StringToUint8(time);
-    _minute = StringToUint8(time + 3);
-    _second = StringToUint8(time + 6);
+  // sample input: date = "Dec 06 2009", time = "12:34:56"
+  _year = StringToUint8(date + 9);
+  // Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+  switch (date[0])
+  {
+  case 'J':
+    if (date[1] == 'a')
+      _month = 1;
+    else if (date[2] == 'n')
+      _month = 6;
+    else
+      _month = 7;
+    break;
+  case 'F':
+    _month = 2;
+    break;
+  case 'A':
+    _month = date[1] == 'p' ? 4 : 8;
+    break;
+  case 'M':
+    _month = date[2] == 'r' ? 3 : 5;
+    break;
+  case 'S':
+    _month = 9;
+    break;
+  case 'O':
+    _month = 10;
+    break;
+  case 'N':
+    _month = 11;
+    break;
+  case 'D':
+    _month = 12;
+    break;
+  }
+  _day = StringToUint8(date + 4);
+  _week = dow(_year, _month, _day);
+  _hour = StringToUint8(time);
+  _minute = StringToUint8(time + 3);
+  _second = StringToUint8(time + 6);
 }
 
 String DateTime::getStrData()
@@ -180,58 +180,58 @@ void DateTime::unixTimeToDateTime(uint32_t epoch)
       break;
     }
   }
-  _month = month + 1;    // jan is month 0
-  _day = epoch + 1; // day of month
+  _month = month + 1; // jan is month 0
+  _day = epoch + 1;   // day of month
   _year = year - 100;
   _week = dow(_year, _month, _day);
 }
 
 bool DateTime::IsValid() const
 {
-    // this just tests the most basic validity of the value ranges
-    // and valid leap years
-    // It does not check any time zone or daylight savings time
-    if ((_month > 0 && _month < 13) &&
-        (_day > 0 && _day < 32) &&
-        (_hour < 24) &&
-        (_minute < 60) &&
-        (_second < 60))
+  // this just tests the most basic validity of the value ranges
+  // and valid leap years
+  // It does not check any time zone or daylight savings time
+  if ((_month > 0 && _month < 13) &&
+      (_day > 0 && _day < 32) &&
+      (_hour < 24) &&
+      (_minute < 60) &&
+      (_second < 60))
+  {
+    // days in a month tests
+    //
+    if (_month == 2)
     {
-        // days in a month tests
-        //
-        if (_month == 2)
-        {
-            if (_day > 29)
-            {
-                return false;
-            }
-            else if (_day > 28)
-            {
-                // leap day
-                // check year to make sure its a leap year
-                uint16_t Year = year();
+      if (_day > 29)
+      {
+        return false;
+      }
+      else if (_day > 28)
+      {
+        // leap day
+        // check year to make sure its a leap year
+        uint16_t Year = year();
 
-                if ((Year % 4) != 0)
-                {
-                    return false;
-                }
-
-                if ((Year % 100) == 0 &&
-                    (Year % 400) != 0)
-                {
-                    return false;
-                }
-            }
-        }
-        else if (_day == 31)
+        if ((Year % 4) != 0)
         {
-            if ((((_month - 1) % 7) % 2) == 1)
-            {
-                return false;
-            }
+          return false;
         }
 
-        return true;
+        if ((Year % 100) == 0 &&
+            (Year % 400) != 0)
+        {
+          return false;
+        }
+      }
     }
-    return false;
+    else if (_day == 31)
+    {
+      if ((((_month - 1) % 7) % 2) == 1)
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+  return false;
 }
