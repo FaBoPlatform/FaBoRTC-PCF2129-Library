@@ -31,5 +31,6 @@ extern uint8_t Uint8ToBcd(uint8_t val);
 extern uint8_t BcdToBin24Hour(uint8_t bcdHour);
 extern uint8_t bcdToDec(uint8_t value);
 extern uint8_t decToBcd(uint8_t value);
+extern uint8_t dow(uint16_t y, uint8_t m, uint8_t d);
 
 #endif // __RTCUTILITY_H__

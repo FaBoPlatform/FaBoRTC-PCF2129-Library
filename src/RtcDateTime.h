@@ -1,5 +1,3 @@
-
-
 #ifndef __RTCDATETIME_H__
 #define __RTCDATETIME_H__
 
@@ -8,6 +6,7 @@
 #include <inttypes.h>
 #endif
 
+#include "RtcUtility.h"
 #define LEAP_YEAR(_year) ((_year % 4) == 0)
 
 enum DayOfWeek
@@ -36,7 +35,7 @@ public:
              uint8_t minute,
              uint8_t second) : _year((year >= c_OriginYear) ? year - c_OriginYear : year),
                                _month(month),
-                               _week(week),
+                               _week((week > 7) ? dow(year, month, day) : week),
                                _day(day),
                                _hour(hour),
                                _minute(minute),

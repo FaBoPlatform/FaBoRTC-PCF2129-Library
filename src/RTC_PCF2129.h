@@ -30,7 +30,6 @@ public:
   bool IsDateTimeValid(void);
   DateTime now(void);
   void SetDateTime(const DateTime &dt);
-  void UpdateRTCbyTS(uint32_t timeTS);
   void set12mode(void);
   void set24mode(void);
   uint8_t LastError(void);
