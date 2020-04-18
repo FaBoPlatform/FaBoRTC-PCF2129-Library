@@ -41,3 +41,18 @@ uint8_t decToBcd(uint8_t value)
 {
     return (uint8_t)((value / 10 * 16) + (value % 10));
 }
+
+uint8_t dow(uint16_t y, uint8_t m, uint8_t d)
+{
+  uint8_t dow;
+  uint8_t dowArray[] PROGMEM = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+
+  y -= m < 3;
+  dow = ((y + y / 4 - y / 100 + y / 400 + pgm_read_byte(dowArray + (m - 1)) + d) % 7);
+
+  if (dow == 0)
+  {
+    return 7;
+  }
+  return dow;
+}

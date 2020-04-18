@@ -73,9 +73,17 @@ void loop()
 {
   DateTime now = RTC.now();
 
-  Serial.printf("Date: %d/%d/%d Time: %d:%d:%d week: %d\n", now.year(), now.month(), now.day(), now.hour(), now.minute(), now.second(), now.week());
-  Serial.printf("str Data: %s\n", now.getStrData().c_str());
-  Serial.printf("str Hora: %s\n", now.getStrHora().c_str());
-  Serial.printf("TS: %u\n", now.getTimeStamp());
+  if (now.IsValid())
+  {
+    Serial.printf("Date: %d/%d/%d Time: %d:%d:%d week: %d\n", now.year(), now.month(), now.day(), now.hour(), now.minute(), now.second(), now.week());
+    Serial.printf("str Data: %s\n", now.getStrData().c_str());
+    Serial.printf("str Hora: %s\n", now.getStrHora().c_str());
+    Serial.printf("TS: %u\n", now.getTimeStamp());
+  }
+  else
+  {
+    Serial.printf("DateTime Invalido\n");
+  }
+
   delay(1000);
 }
