@@ -47,6 +47,7 @@ public:
     DateTime(const char *date, const char *time);
 
     uint16_t year() const { return _year + 2000; }
+    uint16_t yearFrom2k() const { return _year; }
     uint8_t month() const { return _month; }
     uint8_t week() const { return _week; }
     uint8_t day() const { return _day; }
