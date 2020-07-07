@@ -131,6 +131,12 @@ uint32_t DateTime::getTimeStamp()
   }
 }
 
+uint32_t DateTime::getTimeStampNow()
+{
+  return this->getTimeStamp() +             // Last TimeStamp by RTC
+         ((millis() - _lastUpdate) / 1000); // Time since last update
+}
+
 //const uint8_t monthDays[] PROGMEM = {31,28,31,30,31,30,31,31,30,31,30,31};
 const uint8_t monthDays[] PROGMEM = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 void DateTime::unixTimeToDateTime(uint32_t epoch)

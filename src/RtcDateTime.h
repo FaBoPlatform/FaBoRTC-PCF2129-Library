@@ -41,6 +41,7 @@ public:
                                _minute(minute),
                                _second(second)
     {
+        _lastUpdate = millis();
     }
 
     // RtcDateTime compileDateTime(__DATE__, __TIME__);
@@ -59,6 +60,7 @@ public:
     String getStrData();
     String getStrHora();
     uint32_t getTimeStamp();
+    uint32_t getTimeStampNow();
     bool IsValid() const;
 
 protected:
@@ -69,5 +71,6 @@ protected:
     uint8_t _hour;
     uint8_t _minute;
     uint8_t _second;
+    uint32_t _lastUpdate;
 };
 #endif // __RTCDATETIME_H__

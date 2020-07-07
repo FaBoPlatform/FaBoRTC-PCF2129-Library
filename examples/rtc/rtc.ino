@@ -79,6 +79,8 @@ void loop()
     Serial.printf("str Data: %s\n", now.getStrData().c_str());
     Serial.printf("str Hora: %s\n", now.getStrHora().c_str());
     Serial.printf("TS: %u\n", now.getTimeStamp());
+    delay(random(1000, 5000));
+    Serial.printf("TS Now: %u\n", now.getTimeStampNow());
   }
   else
   {
