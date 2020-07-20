@@ -65,7 +65,7 @@ DateTime::DateTime(const char *date, const char *time)
   _second = StringToUint8(time + 6);
 }
 
-String DateTime::getStrData()
+String DateTime::getStrData(void)
 {
   String strData = "";
   if (_year > 00 && _year < 34)
@@ -87,7 +87,7 @@ String DateTime::getStrData()
   return strData;
 }
 
-String DateTime::getStrHora()
+String DateTime::getStrHora(void)
 {
   String strHora = "";
   if (!(_year > 00 && _year < 34))
@@ -110,7 +110,7 @@ String DateTime::getStrHora()
   return strHora;
 }
 
-uint32_t DateTime::getTimeStamp()
+uint32_t DateTime::getTimeStamp(void)
 {
   if (_year > 00 && _year < 34)
   {
@@ -131,7 +131,7 @@ uint32_t DateTime::getTimeStamp()
   }
 }
 
-uint32_t DateTime::getTimeStampNow()
+uint32_t DateTime::getTimeStampNow(void)
 {
   return this->getTimeStamp() +             // Last TimeStamp by RTC
          ((millis() - _lastUpdate) / 1000); // Time since last update
@@ -177,7 +177,7 @@ void DateTime::unixTimeToDateTime(uint32_t epoch)
   _week = dow(_year, _month, _day);
 }
 
-bool DateTime::IsValid() const
+bool DateTime::IsValid(void) const
 {
   // this just tests the most basic validity of the value ranges
   // and valid leap years
@@ -222,6 +222,19 @@ bool DateTime::IsValid() const
       }
     }
 
+    return true;
+  }
+  return false;
+}
+
+bool DateTime::checkWeek(void)
+{
+  if (_week != dow(_year, _month, _day))
+  {
+    return false;
+  }
+  else
+  {
     return true;
   }
   return false;
