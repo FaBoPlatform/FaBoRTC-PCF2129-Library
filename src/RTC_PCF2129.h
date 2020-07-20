@@ -32,6 +32,7 @@ public:
   void SetDateTime(const DateTime &dt);
   void set12mode(void);
   void set24mode(void);
+  void setWeekDays(uint8_t weekDays);
   uint8_t LastError(void);
 
 private:

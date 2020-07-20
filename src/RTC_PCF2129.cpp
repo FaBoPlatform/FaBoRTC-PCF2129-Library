@@ -90,6 +90,14 @@ void RTC_PCF2129::set24mode(void)
   writeCtrl(ctrl);
 }
 
+void RTC_PCF2129::setWeekDays(uint8_t weekDays)
+{
+  if (weekDays > 6 && weekDays < 0)
+  {
+    weekDays = 0;
+  }
+  writeI2c(PCF2129_WEEKDAYS, decToBcd(weekDays));
+}
 ////////////////////////////////////////////////////////////////
 
 /**

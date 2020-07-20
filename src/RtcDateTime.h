@@ -47,21 +47,22 @@ public:
     // RtcDateTime compileDateTime(__DATE__, __TIME__);
     DateTime(const char *date, const char *time);
 
-    uint16_t year() const { return _year + 2000; }
-    uint16_t yearFrom2k() const { return _year; }
-    uint8_t month() const { return _month; }
-    uint8_t week() const { return _week; }
-    uint8_t day() const { return _day; }
-    uint8_t hour() const { return _hour; }
-    uint8_t minute() const { return _minute; }
-    uint8_t second() const { return _second; }
+    uint16_t year(void) const { return _year + 2000; }
+    uint16_t yearFrom2k(void) const { return _year; }
+    uint8_t month(void) const { return _month; }
+    uint8_t week(void) const { return _week; }
+    uint8_t day(void) const { return _day; }
+    uint8_t hour(void) const { return _hour; }
+    uint8_t minute(void) const { return _minute; }
+    uint8_t second(void) const { return _second; }
 
     void unixTimeToDateTime(uint32_t epoch);
-    String getStrData();
-    String getStrHora();
-    uint32_t getTimeStamp();
-    uint32_t getTimeStampNow();
-    bool IsValid() const;
+    String getStrData(void);
+    String getStrHora(void);
+    uint32_t getTimeStamp(void);
+    uint32_t getTimeStampNow(void);
+    bool IsValid(void) const;
+    bool checkWeek(void);
 
 protected:
     uint8_t _year;

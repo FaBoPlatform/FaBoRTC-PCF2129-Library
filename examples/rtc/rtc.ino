@@ -2,6 +2,7 @@
 #include <RTC_PCF2129.h>
 
 RTC_PCF2129 RTC;
+DateTime timeRTC = DateTime(__DATE__, __TIME__);
 
 void setup()
 {
@@ -45,7 +46,8 @@ void setup()
       Serial.printf("Found an RTC with valid time\n");
     }
 
-    uint32_t nowTS = RTC.now().getTimeStamp();
+    timeRTC = RTC.now();
+    uint32_t nowTS = timeRTC.getTimeStamp();
     uint32_t compiledTS = compiled.getTimeStamp();
     if (nowTS < compiledTS)
     {
@@ -60,6 +62,12 @@ void setup()
     {
       Serial.printf("RTC is the same as compile time! (not expected but all is fine)\n");
     }
+
+    if (!timeRTC.checkWeek())
+    {
+      Serial.printf("Update WEEK\n");
+      RTC.setWeekDays(dow(timeRTC.year(), timeRTC.month(), timeRTC.day()));
+    }
   }
   else
   {
@@ -71,16 +79,16 @@ void setup()
 
 void loop()
 {
-  DateTime now = RTC.now();
+  timeRTC = RTC.now();
 
-  if (now.IsValid())
+  if (timeRTC.IsValid())
   {
-    Serial.printf("Date: %d/%d/%d Time: %d:%d:%d week: %d\n", now.year(), now.month(), now.day(), now.hour(), now.minute(), now.second(), now.week());
-    Serial.printf("str Data: %s\n", now.getStrData().c_str());
-    Serial.printf("str Hora: %s\n", now.getStrHora().c_str());
-    Serial.printf("TS: %u\n", now.getTimeStamp());
+    Serial.printf("Date: %d/%d/%d Time: %d:%d:%d week: %d\n", timeRTC.year(), timeRTC.month(), timeRTC.day(), timeRTC.hour(), timeRTC.minute(), timeRTC.second(), timeRTC.week());
+    Serial.printf("str Data: %s\n", timeRTC.getStrData().c_str());
+    Serial.printf("str Hora: %s\n", timeRTC.getStrHora().c_str());
+    Serial.printf("TS: %u\n", timeRTC.getTimeStamp());
     delay(random(1000, 5000));
-    Serial.printf("TS Now: %u\n", now.getTimeStampNow());
+    Serial.printf("TSnow timeRTC: %u\n", timeRTC.getTimeStampNow());
   }
   else
   {
