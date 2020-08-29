@@ -14,8 +14,8 @@ PCF2129 is RTC with integrated quartz crystal
 [PCF2129 Datasheet](https://www.nxp.com/docs/en/data-sheet/PCF2129.pdf)
 
 ## Releases
-
-- 1.0.1 Modified by Perotto.
+- 1.0.0 Initial release by FaBoPlataform
+- 2.0.0 Modified by Perotto.
 
 ## How to install
 
