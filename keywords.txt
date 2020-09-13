@@ -10,41 +10,56 @@ RTC_PCF2129	KEYWORD1
 DateTime	KEYWORD1
 
 #######################################
-# Methods and Functions (KEYWORD2)
+# Methods and Functions for driver (KEYWORD2)
 #######################################	
 
 searchDevice	KEYWORD2
-configure	KEYWORD2
-getSeconds	KEYWORD2
-setSeconds	KEYWORD2
-getMinutes	KEYWORD2
-setMinutes	KEYWORD2
-getHours	KEYWORD2
-setHours	KEYWORD2
-getDays	KEYWORD2
-setDays	KEYWORD2
-getWeekdays	KEYWORD2
-setWeekdays	KEYWORD2
-getMonths	KEYWORD2
-setMonths	KEYWORD2
-getYears	KEYWORD2
-setYears	KEYWORD2
-now	KEYWORD2
-setDate	KEYWORD2
-set12mode	KEYWORD2
-set24mode	KEYWORD2
+configure	    KEYWORD2
+IsDateTimeValid KEYWORD2
+now             KEYWORD2
+SetDateTime     KEYWORD2
+set12mode       KEYWORD2
+set24mode       KEYWORD2
+setWeekDays     KEYWORD2
+LastError       KEYWORD2
+
+#######################################
+# Methods and Functions for times and utility (KEYWORD2)
+#######################################
+DateTime            KEYWORD2
+year                KEYWORD2
+yearFrom2k          KEYWORD2
+month               KEYWORD2
+week                KEYWORD2
+day                 KEYWORD2
+hour                KEYWORD2
+minute              KEYWORD2
+second              KEYWORD2
+unixTimeToDateTime  KEYWORD2
+getStrData          KEYWORD2
+getStrHora          KEYWORD2
+getTimeStamp        KEYWORD2
+getTimeStampNow     KEYWORD2
+IsValid             KEYWORD2
+checkWeek           KEYWORD2
+BcdToUint8          KEYWORD2
+Uint8ToBcd          KEYWORD2
+BcdToBin24Hour      KEYWORD2
+bcdToDec            KEYWORD2
+decToBcd            KEYWORD2
+dow                 KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
 
-PCF2129_SLAVE_ADDRESS	LITERAL1
+PCF2129_SLAVE_ADDRESS   	LITERAL1
 PCF2129_CONTROL_REGISTERS	LITERAL1
-PCF2129_CONTROL_12_24	LITERAL1
-PCF2129_SECONDS	LITERAL1
-PCF2129_MINUTES	LITERAL1
-PCF2129_HOURS	LITERAL1
-PCF2129_DAYS	LITERAL1
-PCF2129_WEEKDAYS	LITERAL1
-PCF2129_MONTHS	LITERAL1
-PCF2129_YEARS	LITERAL1
+PCF2129_CONTROL_12_24	    LITERAL1
+PCF2129_SECONDS	            LITERAL1
+PCF2129_MINUTES 	        LITERAL1
+PCF2129_HOURS	            LITERAL1
+PCF2129_DAYS	            LITERAL1
+PCF2129_WEEKDAYS	        LITERAL1
+PCF2129_MONTHS	            LITERAL1
+PCF2129_YEARS	            LITERAL1
