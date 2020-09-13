@@ -221,7 +221,10 @@ bool DateTime::IsValid(void) const
         return false;
       }
     }
-
+    return true;
+  }
+  if ((_week >= 0) && (_week < 7))
+  {
     return true;
   }
   return false;

@@ -35,7 +35,7 @@ public:
              uint8_t minute,
              uint8_t second) : _year((year >= c_OriginYear) ? year - c_OriginYear : year),
                                _month(month),
-                               _week((week > 7) ? dow(year, month, day) : week),
+                               _week((week > 6) ? dow(year, month, day) : week),
                                _day(day),
                                _hour(hour),
                                _minute(minute),

@@ -50,9 +50,5 @@ uint8_t dow(uint16_t y, uint8_t m, uint8_t d)
     y -= m < 3;
     dow = ((y + y / 4 - y / 100 + y / 400 + pgm_read_byte(dowArray + (m - 1)) + d) % 7);
 
-    if (dow == 0)
-    {
-        return 7;
-    }
     return dow;
 }
